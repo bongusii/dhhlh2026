@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Đại hội</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+        .fade-in { animation: fadeIn 0.25s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Ẩn thanh cuộn để giao diện giống app hơn */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <nav class="bg-blue-700 text-white sticky top-0 z-50 shadow-md transition-all duration-300">
+        <div class="px-4 py-3 flex items-center justify-between min-h-[56px]" id="nav-content">
+            <div class="font-bold text-base tracking-wide truncate w-full text-center">
+                ĐẠI HỘI I
+            </div>
+        </div>
+    </nav>
+
+    <div id="home-view" class="flex-grow fade-in pb-10">
+        <section class="bg-blue-800 text-white py-8 px-4 relative overflow-hidden rounded-b-2xl shadow-sm">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 16px 16px;"></div>
+            
+            <div class="relative z-10 text-center">
+                <div class="w-16 h-16 mx-auto bg-white rounded-full flex items-center justify-center mb-3 shadow-lg">
+                    <img src="logo.png" alt="Logo Hội" class="w-12 h-12 object-contain">
+                </div>
+                <h1 class="text-l font-bold uppercase mb-1 leading-tight">
+                    Đại hội đại biểu
+                </h1>
+                <h1 class="text-l font-bold uppercase mb-1 leading-tight">
+                    Hội Liên hiệp Thanh niên Việt Nam
+                </h1>
+                <h2 class="text-l font-semibold mb-3">PHƯỜNG LONG XUYÊN</h2>
+                <div class="inline-block bg-blue-900/60 px-4 py-2 rounded-full border border-blue-600/50">
+                    <p class="text-xs font-medium text-yellow-300 uppercase tracking-widest">Lần thứ I, Nhiệm kỳ 2024 - 2029</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-4 mt-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-gray-800 font-bold text-lg">Danh mục văn kiện</h3>
+                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-semibold" id="doc-count">0 mục</span>
+            </div>
+            
+            <div id="document-list" class="flex flex-col space-y-3">
+                </div>
+        </section>
+    </div>
+
+    <div id="reader-view" class="hidden flex-grow fade-in bg-black/5 pb-10">
+        <div class="bg-blue-50 text-blue-800 text-xs text-center py-2 px-4 shadow-sm">
+            <i class="fas fa-search-plus mr-1"></i> Dùng 2 ngón tay để phóng to văn bản
+        </div>
+
+        <div id="reader-content" class="flex flex-col">
+            </div>
+        
+        <div class="mt-6 text-center">
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium shadow-sm active:bg-gray-300">
+                <i class="fas fa-arrow-up mr-1"></i> Cuộn lên đầu
+            </button>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 py-4 mt-auto">
+        <div class="px-4 text-center">
+            <p class="text-[10px] text-gray-400 font-medium uppercase tracking-wider">
+                Ứng dụng số hóa Đại hội</br>Hội Liên hiệp thanh niên Việt Nam Phường Long Xuyên
+            </p>
+            <p class="text-[8px] text-gray-400 font-medium tracking-wider">
+                Phát triển bởi Phan Hoàng Anh
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // CẤU HÌNH DỮ LIỆU VĂN KIỆN
+        const documentsData = [
+            {
+                id: "chuong-trinh",
+                title: "Chương trình Đại hội",
+                description: "Lịch trình chi tiết các phiên làm việc",
+                icon: "fa-calendar-alt",
+                color: "text-red-500",
+                bg: "bg-red-100",
+                images: ["assets/chuong-trinh-1.jpg", "assets/chuong-trinh-2.jpg"]
+            },
+            {
+                id: "bao-cao-chinh-tri",
+                title: "Báo cáo chính trị",
+                description: "Tổng kết nhiệm kỳ qua và phương hướng tới",
+                icon: "fa-book",
+                color: "text-blue-600",
+                bg: "bg-blue-100",
+                images: ["assets/bao-cao-1.jpg", "assets/bao-cao-2.jpg"]
+            },
+            {
+                id: "kiem-diem",
+                title: "Báo cáo kiểm điểm",
+                description: "Kiểm điểm Ủy ban Hội khóa cũ",
+                icon: "fa-clipboard-list",
+                color: "text-green-600",
+                bg: "bg-green-100",
+                images: ["assets/kiem-diem-1.jpg"]
+            },
+            {
+                id: "nhan-su",
+                title: "Đề án nhân sự",
+                description: "Danh sách và cấu trúc nhân sự khóa mới",
+                icon: "fa-users",
+                color: "text-purple-600",
+                bg: "bg-purple-100",
+                images: ["assets/nhan-su-1.jpg"]
+            }
+        ];
+
+        // Khởi tạo DOM
+        const homeView = document.getElementById('home-view');
+        const readerView = document.getElementById('reader-view');
+        const documentList = document.getElementById('document-list');
+        const readerContent = document.getElementById('reader-content');
+        const navContent = document.getElementById('nav-content');
+        
+        // Cập nhật số lượng
+        document.getElementById('doc-count').innerText = `${documentsData.length} mục`;
+
+        // Giao diện Navbar mặc định (Trang chủ)
+        const defaultNav = `
+            <div class="font-bold text-base tracking-wide truncate w-full text-center">
+                ĐH LHTN PHƯỜNG LONG XUYÊN
+            </div>
+        `;
+
+        function renderHome() {
+            documentList.innerHTML = '';
+            documentsData.forEach(doc => {
+                // Thiết kế Card tối ưu cho ngón tay chạm (Touch target)
+                const card = document.createElement('div');
+                card.className = "bg-white p-4 rounded-2xl shadow-sm border border-gray-100 active:scale-[0.98] transition-transform duration-150 cursor-pointer flex items-center";
+                card.onclick = () => openDocument(doc.id);
+                
+                card.innerHTML = `
+                    <div class="${doc.bg} ${doc.color} w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-inner">
+                        <i class="fas ${doc.icon} text-xl"></i>
+                    </div>
+                    <div class="ml-4 flex-grow pr-2">
+                        <h3 class="text-base font-bold text-gray-800 leading-tight">${doc.title}</h3>
+                        <p class="text-xs text-gray-500 mt-1 line-clamp-1">${doc.description}</p>
+                    </div>
+                    <div class="text-gray-300 flex-shrink-0">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                `;
+                documentList.appendChild(card);
+            });
+        }
+
+        function openDocument(docId) {
+            const doc = documentsData.find(d => d.id === docId);
+            if (!doc) return;
+
+            // Thay đổi Navbar thành chế độ đọc
+            navContent.innerHTML = `
+                <button onclick="goHome()" class="text-white py-2 pr-4 flex items-center text-sm font-medium active:opacity-70 transition">
+                    <i class="fas fa-chevron-left mr-2 text-lg"></i>
+                </button>
+                <div class="font-bold text-sm truncate flex-grow text-center pr-6">
+                    ${doc.title}
+                </div>
+            `;
+
+            // Xóa nội dung cũ và chèn ảnh mới (Tràn viền)
+            readerContent.innerHTML = '';
+            doc.images.forEach((imgSrc, index) => {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = "relative mb-2 bg-white shadow-sm";
+                
+                imgContainer.innerHTML = `
+                    <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-md z-10">
+                        ${index + 1} / ${doc.images.length}
+                    </div>
+                    <img src="${imgSrc}" alt="Trang ${index + 1}" class="w-full h-auto block" loading="lazy">
+                `;
+                readerContent.appendChild(imgContainer);
+            });
+
+            // Đổi màn hình
+            homeView.classList.add('hidden');
+            readerView.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function goHome() {
+            // Trả lại Navbar mặc định
+            navContent.innerHTML = defaultNav;
+            
+            // Đổi màn hình
+            readerView.classList.add('hidden');
+            homeView.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        // Khởi động
+        renderHome();
+    </script>
+</body>
+</html>
