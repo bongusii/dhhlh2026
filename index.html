@@ -46,7 +46,7 @@
                 </h1>
                 <h2 class="text-l font-semibold mb-3">PHƯỜNG LONG XUYÊN</h2>
                 <div class="inline-block bg-blue-900/60 px-4 py-2 rounded-full border border-blue-600/50">
-                    <p class="text-xs font-medium text-yellow-300 uppercase tracking-widest">Lần thứ I, Nhiệm kỳ 2024 - 2029</p>
+                    <p class="text-xs font-medium text-yellow-300 uppercase tracking-widest">Lần thứ I, Nhiệm kỳ 2026 - 2031</p>
                 </div>
             </div>
         </section>
@@ -66,6 +66,9 @@
         <div class="bg-blue-50 text-blue-800 text-xs text-center py-2 px-4 shadow-sm">
             <i class="fas fa-search-plus mr-1"></i> Dùng 2 ngón tay để phóng to văn bản
         </div>
+
+        <div id="reader-header" class="bg-white px-4 py-4 mb-3 shadow-sm border-b border-gray-200">
+            </div>
 
         <div id="reader-content" class="flex flex-col">
             </div>
@@ -98,7 +101,16 @@
                 icon: "fa-calendar-alt",
                 color: "text-red-500",
                 bg: "bg-red-100",
-                images: ["assets/ct1.jpg", "assets/ct2.jpg", "assets/ct3.jpg", "assets/ct4.jpg", "assets/ct5.jpg", "assets/ct6.jpg", "assets/ct7.jpg", "assets/ct8.jpg"]
+                images: ["assets/ct1.jpg", "assets/ct2.jpg"]
+            },
+            {
+                id: "quy-che",
+                title: "Quy chế Đại hội",
+                description: "Nội dung quy chế Đại hội",
+                icon: "fa-gavel",
+                color: "text-yellow-500",
+                bg: "bg-yellow-100",
+                images: ["assets/qc1.jpg", "assets/qc2.jpg"]
             },
             {
                 id: "bao-cao-chinh-tri",
@@ -107,7 +119,7 @@
                 icon: "fa-book",
                 color: "text-blue-600",
                 bg: "bg-blue-100",
-                images: ["assets/bao-cao-1.jpg", "assets/bao-cao-2.jpg"]
+                images: ["assets/bc1.jpg", "assets/bc2.jpg", "assets/bc3.jpg" , "assets/bc4.jpg", "assets/bc5.jpg", "assets/bc6.jpg", "assets/bc7.jpg", "assets/bc8.jpg", "assets/bc9.jpg", "assets/bc10.jpg", "assets/bc11.jpg", "assets/bc12.jpg", "assets/bc13.jpg", "assets/bc14.jpg", "assets/bc15.jpg", "assets/bc16.jpg"]
             },
             {
                 id: "kiem-diem",
@@ -116,16 +128,52 @@
                 icon: "fa-clipboard-list",
                 color: "text-green-600",
                 bg: "bg-green-100",
-                images: ["assets/kiem-diem-1.jpg"]
+                images: ["assets/bckd1.jpg", "assets/bckd2.jpg", "assets/bckd3.jpg"]
             },
             {
                 id: "nhan-su",
-                title: "Đề án nhân sự",
+                title: "Đề án nhân sự Uỷ ban Hội",
                 description: "Danh sách và cấu trúc nhân sự khóa mới",
                 icon: "fa-users",
                 color: "text-purple-600",
                 bg: "bg-purple-100",
-                images: ["assets/nhan-su-1.jpg"]
+                images: ["assets/da1.jpg", "assets/da2.jpg", "assets/da3.jpg"]
+            },
+            {
+                id: "tham-luan-1",
+                title: "Tham luận 01",
+                description: "Công tác tổ chức khám bệnh và cấp phát thuốc miễn phí cho người dân tại Trung tâm Y tế Long Xuyên",
+                icon: "fa-stethoscope",
+                color: "text-yellow-500",
+                bg: "bg-yellow-100",
+                images: ["assets/ttyt1.jpg", "assets/ttyt2.jpg"]
+            },
+            {
+                id: "tham-luan-2",
+                title: "Tham luận 02",
+                description: "Vai trò của Chi hội địa bàn dân cư trong việc phát hiện, bồi dưỡng và giới thiệu hội viên ưu tú cho Đảng xem xét kết nạp",
+                icon: "fa-users-cog",
+                color: "text-green-500",
+                bg: "bg-green-100",
+                images: ["assets/ptd1.jpg", "assets/ptd2.jpg"]
+            },
+            {
+                id: "tham-luan-3",
+                title: "Tham luận 03",
+                description: "Giải pháp mở rộng mặt trận đoàn kết, tập hợp thanh niên tham gia vào tổ chức Hội tại địa phương",
+                icon: "fa-handshake",
+                color: "text-blue-500",
+                bg: "bg-blue-100",
+                images: ["assets/mtdk1.jpg", "assets/mtdk2.jpg"]
+            },
+            {
+                id: "du-thao-nghi-quyet",
+                title: "Dự thảo Nghị quyết",
+                description: "Nội dung dự thảo nghị quyết Đại hội",
+                icon: "fa-file-alt",
+                color: "text-yellow-600",
+                bg: "bg-yellow-100",
+                images: ["assets/nq1.jpg", "assets/nq2.jpg"]
             }
         ];
 
@@ -135,6 +183,7 @@
         const documentList = document.getElementById('document-list');
         const readerContent = document.getElementById('reader-content');
         const navContent = document.getElementById('nav-content');
+        const readerHeader = document.getElementById('reader-header');
         
         // Cập nhật số lượng
         document.getElementById('doc-count').innerText = `${documentsData.length} mục`;
@@ -181,6 +230,18 @@
                 </button>
                 <div class="font-bold text-sm truncate flex-grow text-center pr-6">
                     ${doc.title}
+                </div>
+            `;
+
+            readerHeader.innerHTML = `
+                <div class="flex items-start space-x-3">
+                    <div class="${doc.bg} ${doc.color} w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <i class="fas ${doc.icon} text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-800 leading-tight">${doc.title}</h2>
+                        <p class="text-sm text-gray-600 mt-1 leading-snug">${doc.description}</p>
+                    </div>
                 </div>
             `;
 
